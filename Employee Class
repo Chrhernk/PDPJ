@@ -1,0 +1,94 @@
+package com.company;
+
+public class Employee
+{
+private float Salary; // private salary
+
+private String EmailAddress; // private email address
+
+private int EmployeeID; // private employee id
+
+private int AccessLevel; // private access level
+
+// Level 1 = Manager
+   public static final int MANAGER = 1; // sets the Access level easier, allowing for better coded statements
+// Level 2 = Employee
+   public static final int EMPLOYEE = 2; // sets the Access level easier, allowing for better coded statements
+// Level 3 = Other
+   public static final int OTHER = 3; // sets the Access level easier, allowing for better coded statements
+
+// The Users Perso Client Number
+    private int UserNumb = 0; // private user number (Goes along with AccessLevel)
+
+public String Name; // public name
+
+//setter method
+public void SetSalary(float salary) {
+    // assign the new salary
+
+if (AccessLevel == MANAGER && UserNumb == 3) // If manager W/ UserNumber of 3, They can change the salary
+{
+    Salary = salary;
+}
+
+if (AccessLevel != MANAGER && UserNumb == 3) // if not, they are unable to
+{
+    System.out.println(" Im sorry! You do not have Permission to use this Option!");
+}
+
+}
+// getter method
+    public float GetSalary() {
+        // return the salary value
+        if (AccessLevel == MANAGER && UserNumb <= 3|| AccessLevel == EMPLOYEE && UserNumb == 2|| AccessLevel == OTHER && UserNumb == 1) {
+            return Salary;
+        }
+        else { // redundant statement, but its how I had to make it work for the functions
+            System.out.println("Im sorry! You do not have Permission to use this Option!");
+            return 0;
+        }
+    }
+
+    //setter method
+    public void SetEmail(String Email) {
+        // Assign the email that is passed Through
+        EmailAddress = Email;
+    }
+    // getter method
+    public String GetEmail() {
+        // return the email value
+        return EmailAddress;
+    }
+
+    //setter method
+    public void SetID(int EID) {
+        // Assigns the ID number to the Person
+        EmployeeID = EID;
+    }
+    // getter method
+    public int GetID() {
+        // return the ID value
+        return EmployeeID;
+    }
+    //setter method
+    public void SetNN(String Nick) {
+        // Assigns the Name value to the person
+        Name = Nick;
+    }
+
+    public void SetALevel(int Level) // sets access level
+    {
+        AccessLevel = Level;
+    }
+
+    public int GetALevel() // retrieves the access level (not Used)
+    {
+        return AccessLevel;
+    }
+    public void SetUserNumb(int Numb) // sets the users number
+    {
+
+        UserNumb = Numb;
+
+    }
+}

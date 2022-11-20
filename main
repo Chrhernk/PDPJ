@@ -1,0 +1,145 @@
+package com.company;
+import java.util.Scanner; // allows me to create scanners (inputs)
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        // welcome the user
+        PT("\n\n\t ** Welcome to the Employee Database ***");
+        // explain to the user what the system is
+        PT("This is where you may see all of our employee information!");
+        // make an instance of the employee class to play with
+        // array for new employees
+        Employee[] obj_employees = {new Employee(), new Employee(), new Employee(), new Employee()};
+        // Setting the current user to this when past Employee ID phase
+        Employee obj_CurrUser = obj_employees[0];
+
+        // setting Salary, Email, ID, Access level, and Name
+        obj_employees[0].SetALevel(Employee.MANAGER);
+        obj_employees[0].SetSalary(5500);
+        obj_employees[0].SetEmail("CHVoiceStudio@Gmail.com");
+        obj_employees[0].SetID(569821);
+        obj_employees[0].SetNN("Chris");
+        obj_employees[0].SetUserNumb(2);
+        obj_employees[0].SetALevel(Employee.EMPLOYEE);
+        // setting Salary, Email, ID, Access level, and Name
+        obj_employees[1].SetALevel(Employee.MANAGER);
+        obj_employees[1].SetSalary(4500);
+        obj_employees[1].SetEmail("eylessj@gmail.com");
+        obj_employees[1].SetID(195269);
+        obj_employees[1].SetNN("James");
+        obj_employees[1].SetUserNumb(1);
+        obj_employees[1].SetALevel(Employee.OTHER);
+        // setting Salary, Email, ID, Access level, and Name
+        obj_employees[2].SetALevel(Employee.MANAGER);
+        obj_employees[2].SetSalary(8800);
+        obj_employees[2].SetEmail("Chernke01@gmail.com");
+        obj_employees[2].SetID(214586);
+        obj_employees[2].SetUserNumb(3);
+        obj_employees[2].SetNN("Charlie");
+        obj_employees[2].SetALevel(Employee.MANAGER);
+        // setting Salary, Email, ID, Access level, and Name
+        obj_employees[3].SetALevel(Employee.MANAGER);
+        obj_employees[3].SetSalary(8800);
+        obj_employees[3].SetEmail("DGH604@gmail.com");
+        obj_employees[3].SetID(358641);
+        obj_employees[3].SetUserNumb(3);
+        obj_employees[3].SetNN("Dan");
+        obj_employees[3].SetALevel(Employee.MANAGER);
+
+
+
+        // ask the user who they are
+        // If not found, it will rerun
+        boolean Found = false;
+        // while found is false, loop
+        while (!Found)
+        {
+
+            PT("Please, INPUT your Employee ID");
+            // get the choice of the USER
+            Scanner Obj_IDChoice = new Scanner(System.in);
+            int ID_Input = Obj_IDChoice.nextInt();
+            // will scan the set array for all employee ids
+            for (int i = 0; i < obj_employees.length; i++)
+            {
+                if (obj_employees[i].GetID() == ID_Input) // if it matches the employee id,
+                {
+                    obj_CurrUser = obj_employees[i];
+                    Found = true; // breaks the bool loop
+                    break;// breaks the for loop
+                }
+            }
+        }
+
+        PT("Welcome " + obj_CurrUser.Name + " to the options Menu"); // welcomes the current user to the program by name, based on the ID given
+
+        Scanner OBJ_NumbChoice =  new Scanner(System.in);
+        int ChoiceNumb;
+                // presents the available options to the users
+                PT("1. View Salary");
+                PT("2. View Email");
+                PT("3. View Other's Emails");
+                PT("4. Change a Salary");
+                PT("Please choose a number, 1-4");
+
+                ChoiceNumb =  OBJ_NumbChoice.nextInt();
+
+                switch(ChoiceNumb) { // all users share the same menu, but will only be able to use the options available to their access level.
+
+                    case 1:
+                        //view Sal
+                        PT("Your Salary is : " + obj_CurrUser.GetSalary() + " Dollars"); // shows the CurrUsers Salary
+                        break;
+                    case 2:
+                        //View Email
+                        PT("Your Email is : " + obj_CurrUser.GetEmail() + "  "); // Shows the CurrUsers Email Address
+                        break;
+                    case 3:
+                        // Show All else Emails
+                        for (int i = 0; i < obj_employees.length; i++)
+                        {
+                            PT(obj_employees[i].Name + " : Their Email is : " + obj_employees[i].GetEmail() + "\n"); // Prints out everyone's emails
+                        }
+                        break;
+                    case 4:
+                        // Change Salary
+
+                        if (obj_CurrUser.GetALevel() == Employee.MANAGER) { // IF the employee is a manager
+                            for (int i = 0; i < 2; i++) { // Prints out all employee salaries, with their names
+                                PT(i + ". " + obj_employees[i].Name + " : Their Salary is : " + obj_employees[i].GetSalary());
+                            }
+                            PT("Who would you like to Modify?"); // asks who you'd want to change
+                            PT("Choose the number in front of their name!");
+                            ChoiceNumb = OBJ_NumbChoice.nextInt();
+
+                            //Scanner Int_Input = new Scanner(System.in);
+                            float NewSal;
+                            // switch statement asking who's salary is being changed
+                            switch (ChoiceNumb) {
+
+                                case 0:
+                                    PT("What would you like to set their salary to?");
+                                    NewSal = OBJ_NumbChoice.nextFloat();
+                                    obj_employees[0].SetSalary(NewSal);
+                                    break;
+                                case 1:
+                                    PT("What would you like to set their salary to?");
+                                    NewSal = OBJ_NumbChoice.nextFloat();
+                                    obj_employees[1].SetSalary(NewSal);
+                                    break;
+                            }
+                        }
+                            if ((obj_CurrUser.GetALevel() != Employee.MANAGER)) { // IF not a manager, Tells you you are unable to use that option.
+                            PT("Sorry! You cant do that!");
+                        }
+
+                        break;
+        }
+
+
+
+    }
+   static void PT(String StuffToSay){System.out.println(StuffToSay);} // makes the System Output much easier to use repeatedly
+}
